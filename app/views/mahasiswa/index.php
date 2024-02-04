@@ -6,39 +6,56 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row mb-3">
         <div class="col-lg-6">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#formModal">
+            <button type="button" class="btn btn-primary tombolTambahData" data-bs-toggle="modal" data-bs-target="#formModal">
                 Tambah Data Mahasiswa
             </button>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-lg-6">
+            <form action="<?= BASEURL; ?>/mahasiswa/cari" method="post">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Cari Mahasiswa" name="keyword" id="keyword" autocomplete="off">
+                    <button class="btn btn-outline-primary" type="submit" id="cari">Cari</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
-            <br><br>
+    <div class="row">
+        <div class="col-lg-6">
+
             <h3>Daftar Mahasiswa</h3>
             <ul class="list-group">
                 <?php
                 foreach ($data['mhs'] as $mhs) :
                 ?>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <li class="list-group-item ">
                         <?= $mhs['nama']; ?>
-                        <a href="<?= BASEURL; ?>/mahasiswa/detail/<?= $mhs['id_mahasiswa']; ?>" class="badge text-bg-primary">Selengkapnya</a>
+                        <a href="<?= BASEURL; ?>/mahasiswa/hapus/<?= $mhs['id_mahasiswa']; ?>" class="badge text-bg-danger mx-1 float-end" onclick="confirm('yakin ingin menghapus?')">hapus</a>
+                        <a href="<?= BASEURL; ?>/mahasiswa/update/<?= $mhs['id_mahasiswa']; ?>" class="badge text-bg-success mx-1 float-end tampilModalUpdate" data-id='<?= $mhs['id_mahasiswa']; ?>' data-bs-toggle="modal" data-bs-target="#formModal">Update</a>
+                        <a href=" <?= BASEURL; ?>/mahasiswa/detail/<?= $mhs['id_mahasiswa']; ?>" class="badge text-bg-primary mx-1 float-end ">Selengkapnya</a>
                     </li>
-
                 <?php endforeach; ?>
             </ul>
 
         </div>
     </div>
 </div>
+
 <!-- Modal -->
-<div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="judulModal" aria-hidden="true">
+<div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="formModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="judulModal">Tambah Data Mahasiswa</h1>
+                <h1 class="modal-title fs-5" id="formModalLabel">Tambah Data Mahasiswa</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form action="<?= BASEURL; ?>/mahasiswa/tambah" method="POST">
                 <div class="modal-body">
+                    <input type="hidden" name="id_mahasiswa" id="id">
                     <div class="form-group">
                         <div class="mb-3">
                             <label for="nama" class="form-label">Nama </label>
